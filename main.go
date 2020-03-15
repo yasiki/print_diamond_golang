@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var alphabet string
@@ -15,16 +18,21 @@ func main() {
 func PrintDiamond(alphabet string) string {
 
 	if alphabet == "A" {
-		return "A\n"
+		return createFirstLine("A", 1)
 	}
 
 	if alphabet == "B" {
-		return " A \nB B\n A \n"
+		return createFirstLine("A", 3) + "B B\n" + " A \n"
 	}
 
 	if alphabet == "C" {
-		return "  A  \n B B \nC   C\n B B \n  A  \n"
+		return createFirstLine("A", 5) + " B B \nC   C\n B B \n  A  \n"
 	}
 
 	return alphabet
+}
+
+func createFirstLine(alphabet string, width int) string {
+	var spaceCount = width / 2
+	return strings.Repeat(" ", spaceCount) + alphabet + strings.Repeat(" ", spaceCount) + "\n"
 }
