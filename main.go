@@ -24,15 +24,17 @@ func PrintDiamond(alphabet string) string {
 
 	var outputLines []string
 
+	//上半分作成
 	for i := 0; i < index+1; i++ {
 		outputLines = append(outputLines, createLine(alphabetList[i], width, i+1))
 	}
 
+	//下半分作成
 	for i := len(outputLines) - 2; i >= 0; i-- {
 		outputLines = append(outputLines, outputLines[i])
 	}
 
-	return strings.Join(outputLines, "")
+	return strings.Join(outputLines, "\n") + "\n"
 
 }
 
@@ -59,11 +61,11 @@ func createLine(alphabet string, width int, lineNo int) string {
 	var outerSpaceCount = (width - (lineNo*2 - 1)) / 2
 
 	if lineNo == 1 {
-		return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount) + "\n"
+		return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount)
 	}
 
 	var innerSpaceCount = (lineNo-1)*2 - 1
-	return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", innerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount) + "\n"
+	return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", innerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount)
 
 }
 
