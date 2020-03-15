@@ -7,7 +7,6 @@ import (
 
 func main() {
 	var alphabet string
-	fmt.Println(createAlphabetList())
 
 	_, err := fmt.Scan(&alphabet)
 	if err != nil {
@@ -23,19 +22,18 @@ func PrintDiamond(alphabet string) string {
 	var index = searchIndex(alphabetList, alphabet)
 	var width = getWidth(index)
 
-	if alphabet == "A" {
-		return createLine("A", width, 1)
+	var outputLines []string
+
+	for i := 0; i < index+1; i++ {
+		outputLines = append(outputLines, createLine(alphabetList[i], width, i+1))
 	}
 
-	if alphabet == "B" {
-		return createLine("A", width, 1) + createLine("B", width, 2) + createLine("A", width, 1)
+	for i := len(outputLines) - 2; i >= 0; i-- {
+		outputLines = append(outputLines, outputLines[i])
 	}
 
-	if alphabet == "C" {
-		return createLine("A", width, 1) + createLine("B", width, 2) + createLine("C", width, 3) + createLine("B", width, 2) + createLine("A", width, 1)
-	}
+	return strings.Join(outputLines, "")
 
-	return alphabet
 }
 
 //リスト内のindexを調べる
@@ -69,6 +67,7 @@ func createLine(alphabet string, width int, lineNo int) string {
 
 }
 
+//AからZまでの配列を作成する
 func createAlphabetList() []string {
 	var list []string
 
