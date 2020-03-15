@@ -29,3 +29,15 @@ C   C
  B B
   A
 ```
+
+## execute
+
+```
+go run main.go
+```
+
+## test
+
+```
+go test -v
+```
