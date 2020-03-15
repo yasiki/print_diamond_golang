@@ -22,11 +22,11 @@ func PrintDiamond(alphabet string) string {
 	}
 
 	if alphabet == "B" {
-		return createFirstLine("A", 3) + "B B\n" + " A \n"
+		return createFirstLine("A", 3) + createSecondLine("B", 3) + " A \n"
 	}
 
 	if alphabet == "C" {
-		return createFirstLine("A", 5) + " B B \nC   C\n B B \n  A  \n"
+		return createFirstLine("A", 5) + createSecondLine("B", 5) + "C   C\n" + " B B \n" + "  A  \n"
 	}
 
 	return alphabet
@@ -35,4 +35,14 @@ func PrintDiamond(alphabet string) string {
 func createFirstLine(alphabet string, width int) string {
 	var spaceCount = width / 2
 	return strings.Repeat(" ", spaceCount) + alphabet + strings.Repeat(" ", spaceCount) + "\n"
+}
+
+func createSecondLine(alphabet string, width int) string {
+	if width < 3 || width%2 == 0 {
+		return "" //error
+	}
+	var innerSpaceCount = 1
+	var outerSpaceCount = (width - 3) / 2
+	return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", innerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount) + "\n"
+
 }
