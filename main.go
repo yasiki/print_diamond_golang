@@ -7,6 +7,8 @@ import (
 
 func main() {
 	var alphabet string
+	fmt.Println(createAlphabetList())
+
 	_, err := fmt.Scan(&alphabet)
 	if err != nil {
 		fmt.Printf("入力でエラーが発生しました。処理を終了します。")
@@ -17,19 +19,38 @@ func main() {
 
 func PrintDiamond(alphabet string) string {
 
+	var alphabetList = createAlphabetList()
+	var index = searchIndex(alphabetList, alphabet)
+	var width = getWidth(index)
+
 	if alphabet == "A" {
-		return createLine("A", 1, 1)
+		return createLine("A", width, 1)
 	}
 
 	if alphabet == "B" {
-		return createLine("A", 3, 1) + createLine("B", 3, 2) + createLine("A", 3, 1)
+		return createLine("A", width, 1) + createLine("B", width, 2) + createLine("A", width, 1)
 	}
 
 	if alphabet == "C" {
-		return createLine("A", 5, 1) + createLine("B", 5, 2) + createLine("C", 5, 3) + createLine("B", 5, 2) + createLine("A", 5, 1)
+		return createLine("A", width, 1) + createLine("B", width, 2) + createLine("C", width, 3) + createLine("B", width, 2) + createLine("A", width, 1)
 	}
 
 	return alphabet
+}
+
+//リスト内のindexを調べる
+func searchIndex(list []string, searchValue string) int {
+	for index, value := range list {
+		if value == searchValue {
+			return index
+		}
+	}
+	return -1
+}
+
+//diamondの横幅を求める
+func getWidth(index int) int {
+	return (index+1)*2 - 1
 }
 
 func createLine(alphabet string, width int, lineNo int) string {
@@ -46,4 +67,17 @@ func createLine(alphabet string, width int, lineNo int) string {
 	var innerSpaceCount = (lineNo-1)*2 - 1
 	return strings.Repeat(" ", outerSpaceCount) + alphabet + strings.Repeat(" ", innerSpaceCount) + alphabet + strings.Repeat(" ", outerSpaceCount) + "\n"
 
+}
+
+func createAlphabetList() []string {
+	var list []string
+
+	const AsciiA = 65
+	const AlphabetCount = 26
+
+	for i := AsciiA; i < AsciiA+AlphabetCount; i++ {
+		list = append(list, string(i))
+	}
+
+	return list
 }
